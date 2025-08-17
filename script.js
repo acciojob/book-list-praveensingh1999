@@ -1,13 +1,10 @@
-
-	
-
 let data=[];
 const handleSubmit = (evt) => {
   evt.preventDefault()
   const formData = new FormData(evt.currentTarget)
   const formObject = Object.fromEntries(formData.entries())
 
-  
+
   data.push(formObject);
   console.log(data);
 
@@ -16,7 +13,7 @@ const handleSubmit = (evt) => {
   for(let i=0;i<data.length;i++){
 
     const table = document.querySelector("tbody");
-    
+
     const tr = document.createElement("tr");
     const title= document.createElement("td");
     title.textContent=data[i].title;
@@ -26,6 +23,7 @@ const handleSubmit = (evt) => {
     isbn.textContent=data[i].isbn;
     const btn = document.createElement("button");
     btn.textContent="X";
+
   btn.setAttribute("class","delete");
     tr.appendChild(title);
     tr.appendChild(author);
@@ -33,12 +31,11 @@ const handleSubmit = (evt) => {
     tr.appendChild(btn);
     table.appendChild(tr);
      btn.addEventListener("click", () => {
-       document.querySelector("tbody").innerHTML="";
-      data.length=0;
+      tr.remove();
+      data.splice(i, 1);
       console.log("Updated data:", data);
       //renderTable(); // re-render table with updated data
     });
 
   }
-	
 }
