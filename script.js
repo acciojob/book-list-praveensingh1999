@@ -33,11 +33,12 @@ const handleSubmit = (evt) => {
     tr.appendChild(btn);
     table.appendChild(tr);
      btn.addEventListener("click", () => {
-      tr.remove();
-      data.splice(i, 1);
+       document.querySelector("tbody").innerHTML="";
+      data.length=0;
       console.log("Updated data:", data);
       //renderTable(); // re-render table with updated data
     });
 
   }
+	
 }
