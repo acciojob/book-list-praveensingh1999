@@ -26,7 +26,7 @@ const handleSubmit = (evt) => {
     isbn.textContent=data[i].isbn;
     const btn = document.createElement("button");
     btn.textContent="X";
-
+  btn.setAttribute("class","delete");
     tr.appendChild(title);
     tr.appendChild(author);
     tr.appendChild(isbn);
