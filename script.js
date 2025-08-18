@@ -9,6 +9,7 @@ const handleSubmit = (evt) => {
   console.log(data);
 
   // table data show in table
+
   document.querySelector("tbody").innerHTML="";
   for(let i=0;i<data.length;i++){
 
