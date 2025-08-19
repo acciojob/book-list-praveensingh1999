@@ -22,20 +22,23 @@ const handleSubmit = (evt) => {
     author.textContent=data[i].author;
     const isbn = document.createElement("td");
     isbn.textContent=data[i].isbn;
+	  const td=document.createElement("td");
     const btn = document.createElement("button");
     btn.textContent="X";
+	  td.appendChild(btn);
+	  
 
   btn.setAttribute("class","delete");
     tr.appendChild(title);
     tr.appendChild(author);
     tr.appendChild(isbn);
-    tr.appendChild(btn);
+    tr.appendChild((td));
     table.appendChild(tr);
      btn.addEventListener("click", () => {
       tr.remove();
       data.splice(i, 1);
-      console.log("Updated data:", data);
-      //renderTable(); // re-render table with updated data
+      // console.log("Updated data:", data);
+      // renderTable(); // re-render table with updated data
     });
 
   }
