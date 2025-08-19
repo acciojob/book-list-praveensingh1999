@@ -1,54 +1,101 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>MyBookList</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-	<h1>MyBookList</h1>
-	<div class="form-group">
-		   <form onsubmit="handleSubmit(event)">
-        <label>Title</label>
-        <br>
-  <input type="text" value="" name="title" required id="title" />
-  <br>
-  <label>Author</label>
-  <BR>
-  <input type="text" name="author" value="" required id="author" />
-  <br>
-  <label>ISBN#</label><br>
-  <input type="text" name="isbn" value="" required  id="isbn"/>
-  <br>
-  <br />
-  <br />
-  <input type="submit" value="Add Book" id="submit"/>
-</form>
+  <h1>MyBookList</h1>
+  <div class="form-group">
+    <form id="book-form">
+      <label>Title</label><br>
+      <input type="text" name="title" required id="title" /><br>
 
-<br>
-<br>
-<hr>
-<table class="table table-striped">
-    <thead id="book-list" >
+      <label>Author</label><br>
+      <input type="text" name="author" required id="author" /><br>
+
+      <label>ISBN#</label><br>
+      <input type="text" name="isbn" required id="isbn" /><br><br>
+
+      <input type="submit" value="Add Book" id="submit"/>
+    </form>
+
+    <br><br><hr>
+
+    <table class="table table-striped">
+      <thead>
         <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>ISBN#</th>
-			<th></th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>ISBN#</th>
+          <th></th>
         </tr>
-    </thead>
-    <tbody id="book-list">
-      
-    </tbody>
-</table>
+      </thead>
+      <tbody id="book-list">
+        <!-- rows will be injected here -->
+      </tbody>
+    </table>
+  </div>
 
-	
-	</div>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+  <script>
+    let data = [];
 
+    const form = document.getElementById("book-form");
+    const tbody = document.getElementById("book-list");
+
+    form.addEventListener("submit", function(evt) {
+      evt.preventDefault();
+
+      // get values
+      const title = document.getElementById("title").value.trim();
+      const author = document.getElementById("author").value.trim();
+      const isbn = document.getElementById("isbn").value.trim();
+
+      // push into array
+      data.push({ title, author, isbn });
+
+      // re-render table
+      renderTable();
+
+      // clear form inputs
+      form.reset();
+    });
+
+    function renderTable() {
+      tbody.innerHTML = ""; // clear old rows
+
+      data.forEach((book, index) => {
+        const tr = document.createElement("tr");
+
+        const tdTitle = document.createElement("td");
+        tdTitle.textContent = book.title;
+
+        const tdAuthor = document.createElement("td");
+        tdAuthor.textContent = book.author;
+
+        const tdIsbn = document.createElement("td");
+        tdIsbn.textContent = book.isbn;
+
+        const tdAction = document.createElement("td");
+        const btn = document.createElement("button");
+        btn.textContent = "X";
+        btn.classList.add("delete");
+        btn.addEventListener("click", () => {
+          data.splice(index, 1);
+          renderTable();
+        });
+
+        tdAction.appendChild(btn);
+
+        tr.appendChild(tdTitle);
+        tr.appendChild(tdAuthor);
+        tr.appendChild(tdIsbn);
+        tr.appendChild(tdAction);
+
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
 </body>
-
 </html>
